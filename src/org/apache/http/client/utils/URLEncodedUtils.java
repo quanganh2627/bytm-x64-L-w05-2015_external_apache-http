@@ -135,8 +135,12 @@ public class URLEncodedUtils {
         scanner.useDelimiter(PARAMETER_SEPARATOR);
         while (scanner.hasNext()) {
             final String[] nameValue = scanner.next().split(NAME_VALUE_SEPARATOR);
-            if (nameValue.length == 0 || nameValue.length > 2)
-                throw new IllegalArgumentException("bad parameter");
+            try {
+              if (nameValue.length == 0 || nameValue.length > 2)
+                  throw new IllegalArgumentException("bad parameter");
+            } catch (Exception e) {
+              return;
+            }
 
             final String name = decode(nameValue[0], encoding);
             String value = null;
