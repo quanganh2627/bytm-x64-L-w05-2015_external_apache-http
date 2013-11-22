@@ -150,26 +150,19 @@ public class SSLSocketFactory implements LayeredSocketFactory {
     
     public static final X509HostnameVerifier STRICT_HOSTNAME_VERIFIER 
         = new StrictHostnameVerifier();
-
-    /*
-     * Put defaults into holder class to avoid class preloading creating an
-     * instance of the classes referenced.
+    /**
+     * The factory using the default JVM settings for secure connections.
      */
-    private static class NoPreloadHolder {
-        /**
-         * The factory using the default JVM settings for secure connections.
-         */
-        private static final SSLSocketFactory DEFAULT_FACTORY = new SSLSocketFactory();
-    }
-
+    private static final SSLSocketFactory DEFAULT_FACTORY = new SSLSocketFactory();
+    
     /**
      * Gets an singleton instance of the SSLProtocolSocketFactory.
      * @return a SSLProtocolSocketFactory
      */
     public static SSLSocketFactory getSocketFactory() {
-        return NoPreloadHolder.DEFAULT_FACTORY;
+        return DEFAULT_FACTORY;
     }
-
+    
     private final SSLContext sslcontext;
     private final javax.net.ssl.SSLSocketFactory socketfactory;
     private final HostNameResolver nameResolver;
